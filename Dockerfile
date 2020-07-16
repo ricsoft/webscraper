@@ -11,5 +11,6 @@ RUN apk add chromium chromium-chromedriver
 
 RUN pip install --upgrade pip
 
+RUN pip install pytz
 RUN pip install selenium
 RUN pip install boto3

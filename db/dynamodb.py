@@ -1,8 +1,17 @@
 import config as config
 import boto3
+import pytz
+from datetime import datetime
 
+def addToDynamodb(breweryList):
+    dbName = 'dynamodb'
+    tableName = 'Webscraper'
+    primaryPartition = 'Breweries'
 
-def addToDynamodb(table, list):
+    pst = pytz.timezone('America/Los_Angeles')
+    fmt = '%b %d, %Y'
+    currentDate = datetime.now(pst).strftime(fmt)
+
     try:
         session = boto3.Session(
             aws_access_key_id=config.AWS_SERVER_PUBLIC_KEY,
@@ -10,18 +19,19 @@ def addToDynamodb(table, list):
             region_name=config.AWS_REGION
         )
 
-        dynamodb = session.resource('dynamodb')
+        dynamodb = session.resource(dbName)
 
-        table = dynamodb.Table('Games')
+        table = dynamodb.Table(tableName)
+
         response = table.put_item(
             Item={
-                "Date": "Current",
-                "NintendoList": nintendo_list,
-                "SteamList": steam_list
+                'ID': primaryPartition,
+                'Date': currentDate,
+                'Breweries': breweryList
             }
         )
 
         return response
 
-    except RuntimeError:
-        return ("ERROR: add to DynamoDB")
+    except:
+        return ('ERROR: add to DynamoDB')
