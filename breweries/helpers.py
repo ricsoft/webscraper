@@ -43,7 +43,7 @@ def fillBeerList(driver, url, waitFor, beerName, beerType=None):
 
 def stripNewLine(beerList):
     for obj in beerList:
-        obj['name'] = obj['name'].rstrip("\n")
+        obj['name'] = obj['name'].strip()
 
     return beerList
 

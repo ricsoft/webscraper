@@ -2,7 +2,7 @@
 # docker build -t webscraper:latest .
 
 # Run the image and mount the current project dir using CMD
-# docker run -it -v %cd%:/usr/src --shm-size=1g --name webscraper webscraper:latest
+# docker run -it -v %cd%:/usr/src --shm-size=2g --name webscraper webscraper:latest
 
 FROM python:3.8-alpine3.12
 	

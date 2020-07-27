@@ -25,9 +25,9 @@ def addToDynamodb(breweryList):
 
         response = table.put_item(
             Item={
-                'ID': primaryPartition,
-                'Date': currentDate,
-                'Data': breweryList
+                'id': primaryPartition,
+                'date': currentDate,
+                'data': breweryList
             }
         )
 

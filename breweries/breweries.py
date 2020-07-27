@@ -1,9 +1,10 @@
-from breweries.helpers import getChromeDriver, fillBeerList, stripNewLine, spaceBeforeCapital
+from breweries.helpers import *
 
-yellowdogUrl = 'https://yellowdogbeer.com/tasting-room'
-moodyalesUrl = 'http://www.moodyales.com'
-parksideUrl = 'http://www.theparksidebrewery.com/tasting-room'
+yellowdogUrl = 'https://yellowdogbeer.com/tasting-room/'
+moodyalesUrl = 'http://www.moodyales.com/'
+parksideUrl = 'http://www.theparksidebrewery.com/tasting-room/'
 twinsailsUrl = 'https://twinsailsbrewing.com/our-beers/'
+frasermillsUrl = 'https://frasermillsfermentation.com/beer-menu/'
 
 def getYellowdog():
     beerList = []
@@ -67,6 +68,24 @@ def getTwinsails():
 
     except:
         print('Error getTwinsails')
+
+    driver.quit()
+
+    return beerList
+
+def getFrasermills():
+    beerList = []
+    driver = getChromeDriver()
+
+    try:
+        waitFor = '//*[@class="beer-name"]'
+        beerName = ['div.tab-content#menu-77578 div.beer div.beer-details p.beer-name a.item-title-color']
+        beerType = 'div.tab-content#menu-77578 div.beer div.beer-details p.beer-name span.beer-style'
+        beerList = fillBeerList(driver, frasermillsUrl, waitFor, beerName, beerType)
+        beerList = stripNewLine(beerList)
+
+    except RuntimeError:
+        print('Error getFrasermills')
 
     driver.quit()
 
