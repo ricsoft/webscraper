@@ -5,6 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import re
 
+
 def getChromeDriver():
     chromeOptions = Options()
     chromeOptions.add_argument('--no-sandbox')
@@ -13,21 +14,23 @@ def getChromeDriver():
 
     return webdriver.Chrome(options=chromeOptions)
 
-def fillBeerList(driver, url, waitFor, beerName, beerType=None):
+
+def fillBeerList(driver, url, waitFor, beerName, beerType):
     beerList = []
     beerNames = []
 
     driver.get(url)
     WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, waitFor)))
 
-    for name in beerName:
-        beerNames = beerNames + driver.find_elements_by_css_selector(name)
+    if beerName is not None:
+        for name in beerName:
+            beerNames = beerNames + driver.find_elements_by_css_selector(name)
 
-    if beerType:
+    if beerType is not None:
         beerTypes = driver.find_elements_by_css_selector(beerType)
 
     for i in range(len(beerNames)):
-        if beerType:
+        if beerType is not None:
             beer = {
                 'name': beerNames[i].get_attribute('textContent'),
                 'type': beerTypes[i].get_attribute('textContent')
@@ -38,8 +41,9 @@ def fillBeerList(driver, url, waitFor, beerName, beerType=None):
             }
 
         beerList.append(beer)
-    
+
     return beerList
+
 
 def stripNewLine(beerList):
     for obj in beerList:
@@ -47,8 +51,17 @@ def stripNewLine(beerList):
 
     return beerList
 
+
 def spaceBeforeCapital(beerList):
     for obj in beerList:
         obj['name'] = re.sub(r'(?<=[a-z])(?=[A-Z])', ' ', obj['name'])
+
+    return beerList
+
+
+def stripNonAlpha(beerList):
+    for obj in beerList:
+        obj['name'] = re.sub(r'[^a-zA-Z]', ' ', obj['name'])
+        obj['name'] = re.sub(' +', ' ', obj['name'])
 
     return beerList

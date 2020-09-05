@@ -3,5 +3,6 @@ from db.dynamodb import addToDynamodb
 
 # scrap beer from breweries
 # then upload beer to dynamodb
-breweryList = [getYellowdog(), getMoodyales(), getParkside(), getTwinsails(), getFrasermills()]
+breweryList = [getDageraad(), getYellowdog(), getMoodyales(), getParkside(), getTwinsails(), getFrasermills()]
 print(addToDynamodb(breweryList))
+
