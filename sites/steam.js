@@ -1,4 +1,5 @@
 import { By, until } from "selenium-webdriver";
+import { getDate } from "../utils/utils.js";
 
 export default async function getSteam(driver) {
   try {
@@ -13,7 +14,7 @@ export default async function getSteam(driver) {
         )
       )
     );
-    
+
     const titles = await driver.findElements(
       By.xpath(
         "//div[@class='facetedbrowse_FacetedBrowseItems_NO-IP']//div[contains(@class, 'salepreviewwidgets_StoreSaleWidgetTitle')]"
@@ -39,8 +40,7 @@ export default async function getSteam(driver) {
       data.push({ title: title, price: price });
     }
 
-    const date = new Date().toLocaleDateString("pt-PT");
-    return { site: "steam", lastUpdated: date, data: data };
+    return { site: "steam", lastUpdated: getDate(), data: data };
   } catch (e) {
     console.log("Steam Error", e);
     return null;
