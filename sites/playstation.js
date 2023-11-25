@@ -6,6 +6,7 @@ export default async function getPlaystation(driver) {
     await driver.get(
       "https://store.playstation.com/en-ca/category/dc464929-edee-48a5-bcd3-1e6f5250ae80/1?PS5=targetPlatforms&FULL_GAME=storeDisplayClassification"
     );
+    await sleep(1);
 
     let button = await driver.wait(
       until.elementLocated(
@@ -31,7 +32,7 @@ export default async function getPlaystation(driver) {
       )
     );
     button.click();
-    await sleep(3);
+    await sleep(2.5);
 
     const titles = await driver.findElements(
       By.xpath(
