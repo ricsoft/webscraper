@@ -1,15 +1,7 @@
 import webdriver from "selenium-webdriver";
-import { Options } from "selenium-webdriver/chrome.js";
 
 export function getDriver() {
-  const options = new Options();
-  options.addArguments("--window-size=1300,900");
-
-  const driver = new webdriver.Builder()
-    .forBrowser("chrome")
-    .setChromeOptions(options)
-    .build();
-
+  const driver = new webdriver.Builder().forBrowser("chrome").build();
   return driver;
 }
 
@@ -23,7 +15,12 @@ export async function sleep(seconds) {
 }
 
 export async function sendData(data) {
-  const response = await fetch("http://localhost:8080/api/discounts", {
+  // process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
+  // const url = "https://localhost:8080/api/discounts/"
+
+  const url = "http://localhost:8080/api/discounts/";
+
+  const response = await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
