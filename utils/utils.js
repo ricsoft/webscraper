@@ -23,7 +23,7 @@ export async function sleep(seconds) {
 }
 
 export async function sendData(data) {
-  const response = await fetch("http://localhost:8080/api/discounts/", {
+  const response = await fetch("http://localhost:8080/api/discounts", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
