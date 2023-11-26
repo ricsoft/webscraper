@@ -1,7 +1,7 @@
 import webdriver from "selenium-webdriver";
 
 export function getDriver() {
-  const driver = new webdriver.Builder().forBrowser("chrome").build();
+  const driver = new webdriver.Builder().forBrowser("firefox").build();
   return driver;
 }
 
