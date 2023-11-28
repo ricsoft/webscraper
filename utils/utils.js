@@ -1,7 +1,15 @@
 import webdriver from "selenium-webdriver";
+import * as firefox from "selenium-webdriver/firefox.js";
 
 export function getDriver() {
-  const driver = new webdriver.Builder().forBrowser("firefox").build();
+  const options = new firefox.Options();
+  options.addArguments("--width=1300");
+  options.addArguments("--height=1000");
+  options.headless();
+  const driver = new webdriver.Builder()
+    .forBrowser("firefox")
+    .setFirefoxOptions(options)
+    .build();
   return driver;
 }
 
