@@ -5,7 +5,7 @@ export function getDriver() {
   const options = new firefox.Options();
   options.addArguments("--width=1300");
   options.addArguments("--height=1000");
-  options.headless();
+  options.addArguments("--headless");
   const driver = new webdriver.Builder()
     .forBrowser("firefox")
     .setFirefoxOptions(options)
