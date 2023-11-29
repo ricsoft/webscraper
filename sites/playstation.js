@@ -6,33 +6,7 @@ export default async function getPlaystation(driver) {
     await driver.get(
       "https://store.playstation.com/en-ca/category/dc464929-edee-48a5-bcd3-1e6f5250ae80/1?PS5=targetPlatforms&FULL_GAME=storeDisplayClassification"
     );
-    await sleep(1);
-
-    let button = await driver.wait(
-      until.elementLocated(
-        By.xpath(
-          "//button[contains(@class, 'ems-sdk-grid-sort-filter-tablet-margin')]"
-        )
-      )
-    );
-    button.click();
-
-    button = await driver.wait(
-      until.elementLocated(
-        By.xpath(
-          "//button[contains(@data-qa, 'ems-sdk-collapsible-menu--sort')]"
-        )
-      )
-    );
-    button.click();
-
-    button = await driver.wait(
-      until.elementLocated(
-        By.xpath("//span[contains(@class, 'psw-radio-group')]//label[2]")
-      )
-    );
-    button.click();
-    await sleep(2.5);
+    await sleep(3);
 
     const titles = await driver.findElements(
       By.xpath(
